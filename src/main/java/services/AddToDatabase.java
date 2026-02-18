@@ -9,8 +9,12 @@ public class AddToDatabase {
 
     public static void addDb(Connection conn, Sell sell){
 
+        PreparedStatement st = null;
+
         try{
-            PreparedStatement st = conn.prepareStatement(
+            conn.setAutoCommit(false);
+
+            st = conn.prepareStatement(
                     "INSERT INTO vendas "
                     + "(Product_Name, Quantity, Client_Name, Subtotal)"
                     + "VALUES "
@@ -32,10 +36,20 @@ public class AddToDatabase {
                 }
                 BD.closeResultSet(rs);
             }
-            BD.closeStatement(st);
+
+            conn.commit();
 
         } catch(SQLException e){
-            throw new BdException(e.getMessage());
+            try{
+                conn.rollback();
+                throw new BdException("Transaction rolled back! Caused by: " + e.getMessage());
+            }
+            catch (SQLException e1){
+                throw new BdException("Error trying to rollback! Caused by: " + e1.getMessage());
+            }
+        }
+        finally{
+            BD.closeStatement(st);
         }
     }
 }

@@ -1,5 +1,6 @@
 package services;
 
+import models.excpetions.BdException;
 import models.excpetions.BdIntegrityException;
 
 import java.sql.Connection;
@@ -18,6 +19,8 @@ public class DeleteRow {
         Integer delId = Integer.parseInt(sc.nextLine());
 
         try{
+            conn.setAutoCommit(false);
+
             st = conn.prepareStatement(
                     "DELETE FROM vendas "
                     + "WHERE "
@@ -32,9 +35,18 @@ public class DeleteRow {
             } else{
                 System.out.println("This Id doesn`t exist.");
             }
+
+            conn.commit();
+
         }
-        catch(SQLException e){
-            throw new BdIntegrityException(e.getMessage());
+        catch (SQLException e){
+            try{
+                conn.rollback();
+                throw new BdException("Transaction rolled back! Caused by: " + e.getMessage());
+            }
+            catch (SQLException e1){
+                throw new BdException("Error trying to rollback! Caused by: " + e1.getMessage());
+            }
         }
         finally{
             BD.closeStatement(st);

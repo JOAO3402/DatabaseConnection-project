@@ -2,7 +2,6 @@ package application;
 
 import models.entities.Sell;
 import services.*;
-
 import java.sql.Connection;
 import java.util.*;
 

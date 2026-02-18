@@ -16,6 +16,8 @@ public class EditDatabase {
         PreparedStatement st = null;
 
         try {
+            conn.setAutoCommit(false);
+
             System.out.print("Enter the ID of sell: ");
             Integer Id = Integer.parseInt(sc.nextLine());
             System.out.print("Enter the new name of the client: ");
@@ -40,9 +42,16 @@ public class EditDatabase {
 
             System.out.println();
 
+            conn.commit();
         }
         catch(SQLException e) {
-            throw new BdException(e.getMessage() + "\n");
+            try{
+                conn.rollback();
+                throw new BdException("Transaction rolled back! Caused by: " + e.getMessage());
+            }
+            catch (SQLException e1){
+                throw new BdException("Error trying to rollback! Caused by: " + e1.getMessage());
+            }
         }
         catch(InputMismatchException e) {
             System.out.println("Error: " + e.getMessage() + "\n");
