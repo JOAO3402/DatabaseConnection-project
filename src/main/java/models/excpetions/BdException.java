@@ -1,4 +1,4 @@
-package models;
+package models.excpetions;
 
 public class BdException extends RuntimeException {
 

@@ -1,10 +1,8 @@
 package application;
 
 import models.entities.Sell;
-import services.BD;
-import services.BdListAdd;
-import services.CreateSell;
-import services.EditDatabase;
+import services.*;
+
 import java.sql.Connection;
 import java.util.*;
 
@@ -30,7 +28,8 @@ public class Program {
                 System.out.println("1 - Adicionar uma Venda");
                 System.out.println("2 - Subir a Venda no BD");
                 System.out.println("3 - Editar o nome de um Cliente");
-                System.out.println("4 - Sair");
+                System.out.println("4 - Deletar venda do BD");
+                System.out.println("5 - Sair");
 
                 control = Integer.parseInt(sc.nextLine());
 
@@ -50,6 +49,10 @@ public class Program {
                         break;
 
                     case 4:
+                        DeleteRow.delete(conn);
+                        break;
+
+                    case 5:
                         escolha = false;
                         break;
 

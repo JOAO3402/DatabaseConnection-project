@@ -1,6 +1,6 @@
 package services;
 
-import models.BdException;
+import models.excpetions.BdException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

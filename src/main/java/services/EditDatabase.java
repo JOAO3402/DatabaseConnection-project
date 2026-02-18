@@ -1,6 +1,6 @@
 package services;
 
-import models.BdException;
+import models.excpetions.BdException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

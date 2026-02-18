@@ -1,6 +1,6 @@
 package services;
 
-import models.BdException;
+import models.excpetions.BdException;
 import models.entities.Sell;
 
 import java.sql.Connection;
