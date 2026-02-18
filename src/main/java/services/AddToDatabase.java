@@ -28,7 +28,7 @@ public class AddToDatabase {
                 ResultSet rs = st.getGeneratedKeys();
                 while(rs.next()){
                     int id = rs.getInt(1);
-                    System.out.println("Done! Id = " + id);
+                    System.out.println("Done! Id = " + id + "\n");
                 }
                 BD.closeResultSet(rs);
             }

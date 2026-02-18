@@ -22,6 +22,7 @@ public class CreateSell {
             Double price = Double.parseDouble(sc.nextLine());
             System.out.print("Enter the quantity ");
             Integer quantity = Integer.parseInt(sc.nextLine());
+            System.out.println();
 
             sells.add(new Sell(new Client(name), new Product(pName, price), quantity));
 
